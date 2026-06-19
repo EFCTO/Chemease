@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chemease"
+version = "0.2.0"
+description = "A professional cheminformatics library built on RDKit."
+readme = "README.md"
+authors = [
+    { name = "Developer", email = "developer@example.com" }
+]
+license = { text = "MIT" }
+keywords = ["cheminformatics", "rdkit", "chemistry", "drug-discovery", "pubchem", "chembl"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Chemistry",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "rdkit>=2023.03.1",
+    "pubchempy>=1.0.4",
+    "pandas>=1.5.0",
+    "chembl_webresource_client>=0.10.8",
+    "scikit-learn>=1.0.0",
+    "click>=8.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/EFCTO/chemease"
+Repository = "https://github.com/EFCTO/chemease"
+"Bug Tracker" = "https://github.com/EFCTO/chemease/issues"
+
+[project.scripts]
+chemease = "chemease.cli:cli"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=23.0.0",
+    "isort>=5.10.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pandas-stubs",
+    "build",
+    "twine"
+]

@@ -1,0 +1,6 @@
+rdkit>=2023.03.1
+pubchempy>=1.0.4
+pandas>=1.5.0
+chembl_webresource_client>=0.10.8
+scikit-learn>=1.0.0
+click>=8.0.0
