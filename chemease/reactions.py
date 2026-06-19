@@ -36,5 +36,4 @@ def synthesize_amides(acids: list[Chem.Mol], amines: list[Chem.Mol]) -> list[Che
                 Chem.SanitizeMol(mol)
                 results.append(mol)
     return results
-
-__v
+d

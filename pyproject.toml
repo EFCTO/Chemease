@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "chemease"
-version = "0.2.0"
+dynamic = ["version"]
 description = "A professional cheminformatics library built on RDKit."
 readme = "README.md"
 authors = [
@@ -34,9 +34,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/EFCTO/chemease"
-Repository = "https://github.com/EFCTO/chemease"
-"Bug Tracker" = "https://github.com/EFCTO/chemease/issues"
+Homepage = "https://github.com/developer/chemease"
+Repository = "https://github.com/developer/chemease"
+"Bug Tracker" = "https://github.com/developer/chemease/issues"
 
 [project.scripts]
 chemease = "chemease.cli:cli"
@@ -44,11 +44,21 @@ chemease = "chemease.cli:cli"
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
+    "pytest-mock>=3.10.0",
     "black>=23.0.0",
     "isort>=5.10.0",
     "flake8>=6.0.0",
     "mypy>=1.0.0",
     "pandas-stubs",
     "build",
-    "twine"
+    "twine",
+    "mkdocs-material",
+    "mkdocstrings[python]"
 ]
+
+[tool.setuptools.dynamic]
+version = {attr = "chemease.__version__"}
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true

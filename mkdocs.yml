@@ -1,0 +1,20 @@
+site_name: ChemEase Pro
+site_description: A professional cheminformatics library built on RDKit
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [.]
+nav:
+  - Home: index.md
+  - API Reference:
+    - Fetcher: api/fetcher.md
+    - Analysis: api/analysis.md
+    - Conformers: api/conformers.md

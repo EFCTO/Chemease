@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch, MagicMock
 from rdkit import Chem
 
 from chemease import (calculate_advanced_descriptors_df, cluster_molecules,
@@ -7,14 +8,24 @@ from chemease import (calculate_advanced_descriptors_df, cluster_molecules,
                       get_target_by_name, perform_pca, run_virtual_reaction,
                       synthesize_amides)
 
+@patch('chemease.databases.new_client')
+def test_databases(mock_new_client):
+    # Mock target
+    mock_target_filter = MagicMock()
+    mock_target_filter.only.return_value = [{'target_chembl_id': 'CHEMBL203', 'pref_name': 'EGFR', 'organism': 'Homo sapiens'}]
+    mock_new_client.target.filter.return_value = mock_target_filter
+    
+    # Mock molecule
+    mock_mol_filter = MagicMock()
+    mock_mol_filter.only.return_value = [{'molecule_structures': {'canonical_smiles': 'CC(=O)OC1=CC=CC=C1C(=O)O'}}]
+    mock_new_client.molecule.filter.return_value = mock_mol_filter
 
-def test_databases():
     targets = get_target_by_name("EGFR")
     assert len(targets) > 0
-    mol = get_mol_from_chembl("CHEMBL25")  # Aspirin
+    
+    mol = get_mol_from_chembl("CHEMBL25")
     assert mol is not None
     assert mol.GetNumAtoms() > 0
-
 
 def test_descriptors():
     mol = Chem.MolFromSmiles("CCO")
@@ -25,7 +36,6 @@ def test_descriptors():
     assert "MACCS_1" in df.columns
     assert len(df) == 1
 
-
 def test_conformers():
     mol = Chem.MolFromSmiles("CCO")
     mol_3d = generate_conformers(mol, num_confs=3, optimize=False)
@@ -33,7 +43,6 @@ def test_conformers():
 
     energies = get_conformer_energies(mol_3d)
     assert len(energies) == 3
-
 
 def test_analysis():
     mols = [
@@ -50,7 +59,6 @@ def test_analysis():
     df_pca = perform_pca(mols)
     assert len(df_pca) == 3
     assert "PC1" in df_pca.columns
-
 
 def test_reactions():
     acid = Chem.MolFromSmiles("CC(=O)O")
